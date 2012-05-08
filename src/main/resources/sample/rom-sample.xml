@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<repositories>
 <repository type="archieve" theme="household" name="仓库盘01" path="M:">
 	<dir type="documents" theme="intimate" name="Documents" >
 		<dir type="multimedia" subtype="picture" theme="intimate" name="My Pictures" />
@@ -125,8 +126,8 @@
 		<meta key="duration" value="60min 6s" />
 	</file>
 	<dir id="321" series-id="tt111" season="1" name="[内地]红楼梦.a.Dream.in.Red.Mansions.1988">
-		<file-template [start=1] end=32 var='i'>红楼梦.cctv.1988.S01E{i}-yyets.mkv</file-template>
-		<file name="红楼梦.cctv.1988.S01E30.fixed-yyets.mkv" episode="30">
+		<file-template start="1(default)" end="32" var='i'>红楼梦.cctv.1988.S01E{i}-yyets.mkv</file-template>
+		<file name="红楼梦.cctv.1988.S01E30.fixed-yyets.mkv" episode="30"/>
 		
 		<dir season='' name="xiabanbu">
 			
@@ -138,8 +139,8 @@
 
 <movies>
 	<movie id ="" related-file="1033">
-		<unique-=>
-		<id>0112573<id>
+		<!--   <unique-=> -->
+		<id>0112573</id>
 		<imdb id="tt0112573">
 			<rating user="ALL">8.4</rating>
 			<rating user="hzk">8</rating>
@@ -149,14 +150,14 @@
 	</movie>
 	<movie id ="3333333">
 		<related-files num-parts='2'>
-			<file id="1066" [type="main"] part='1'/>
+			<file id="1066" part='1'/>
 			<file id="1066" type="subtitle" part='1'/>
 			<file id="1066" type="main" part='2'/>
 			<file id="1067" type="audio" part='2'/>
-			<file id="1450" type="sample" [part='0']/>
+			<file id="1450" type="sample" part='0'/>
 		</related-files>
 		
-		<id>0112573<id>
+		<id>0112573</id>
 		<meta>
 			<actors/>
 			<producer/>
@@ -175,9 +176,10 @@
 		<meta />
 		<season related-dir="321">
 			
-		<season>
+		</season>
 	</series>
 	<series id="111">only season
 		
 	</series>
 </serieses>
+</repositories>
