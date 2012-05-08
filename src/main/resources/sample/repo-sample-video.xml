@@ -1,0 +1,38 @@
+<a xmlns="http://www.example.org/test"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:noNamespaceSchemaLocation="sample/test.xsd">
+
+	<!-- default-subtype='common' ,theme='common' default-type='common' ,default-path=[name] -->
+
+	<dir name="Movies">
+		<file id="9a464e91f3b00928cb1efd189bbff29640d67816">
+			<name>勇敢的心.Braveheart.1995.Bluray.1080p.DTS.4Audio.x264-CHD.mkv</name>
+			<warez-provider>CHD</warez-provider>
+			<source>Bluray</source>
+			<version>DC</version>
+			<duration>204min 37s</duration>
+			<size>8302143232b</size>
+			<standard>1080p,3D</standard>
+
+		</file>
+		
+		<file id="0480b107c6257004eb157ec43ec81d8255796900" name="盗梦空间.Inception.2010.BDRip.iNT-TLF.part1.mkv"
+			warez-provider="TLF" size="1402143876b" duration="67min 37s" />
+
+		<file name="盗梦空间.Inception.2010.BDRip.iNT-TLF.part2.mkv">
+			<meta key="size" value="1308795421b" />
+			<meta key="duration" value="60min 6s" />
+		</file>
+		<dir name="[内地]红楼梦.a.Dream.in.Red.Mansions.1988">
+			<file-template start="1(default)" end="32" var='i'>红楼梦.cctv.1988.S01E{i}-yyets.mkv
+			</file-template>
+			<file name="红楼梦.cctv.1988.S01E30.fixed-yyets.mkv" episode="30" ></file>
+
+			<dir season='' name="xiabanbu">
+
+			</dir>
+		</dir>
+	</dir>
+
+
+
+</a>

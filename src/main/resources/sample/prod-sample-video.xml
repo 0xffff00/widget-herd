@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<products>
+	<movie id ="" related-file="9a464e91f3b00928cb1efd189bbff29640d67816">
+		<!--   <unique-=> -->
+		<id>0112573</id>
+		<imdb id="tt0112573">
+			<rating user="ALL">8.4</rating>
+			<rating user="hzk">8</rating>
+		</imdb>
+		<douban>
+		</douban>
+	</movie>
+	<movie id ="3333333" >
+		<related-files num-parts='2'>
+			<file id="0480b107c6257004eb157ec43ec81d8255796900" part='1'/>
+			<file path="XXX.part1.chs.srt" type="subtitle" part='1'/>
+			<file path="XXX.part2.mkv" type="main" part='2'/>
+			<file path="XXX.part2.dts" type="audio" part='2'/>
+			<file id="1450" type="sample" part='0'/>
+		</related-files>
+		
+		<id>0112573</id>
+		<meta>
+			<actors/>
+			<producer/>
+			<styles>
+					<style>comedy</style>
+				<style>documentary</style>
+			</styles>
+		
+			<publish-year>1995</publish-year>
+			<imdb id="tt0112573">
+				<rating user="public">8.4</rating>
+				<rating user="hzk">8</rating>
+			</imdb>
+			<douban path="">
+			</douban>
+			<mtime>
+				
+			</mtime>
+		</meta>
+	</movie>
+
+<series id="111">
+	<meta />
+	<season related-dir="321">
+		
+	</season>
+</series>
+<series id="111">only season</series>
+	
+</products>

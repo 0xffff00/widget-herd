@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	default-type=pc default-os-env=window
+ -->
+<games>
+<game>
+	<path></path>
+	<name lang="zh"></name>
+	<name lang="en">starcraft</name>
+	
+	<name type="era-version">2</name>
+	<repo path="">
+		<version>1.23.0</version>
+	</repo>
+	
+	<full-name lang="en"></full-name>
+	<dlc />
+	<pack />
+	<mod />
+	<maps />
+	<>
+</game>
+
+</games>
