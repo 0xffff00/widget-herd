@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<repository type="archieve" theme="household" name="仓库盘01" path="M:">
+	<dir type="documents" theme="intimate" name="Documents" >
+		<dir type="multimedia" subtype="picture" theme="intimate" name="My Pictures" />
+		<dir type="multimedia" subtype="video" theme="intimate" name="My Videos" />
+	</dir>
+	<dir type="software" subtype="game" name="Games" />
+	<dir type="multimedia" subtype="picture" name="Pictures" />
+	<dir type="multimedia" subtype="video" theme="movie" name="Movies" />
+	<dir type="multimedia" subtype="video" theme="series" name="Video2" />
+	<dir type="multimedia" subtype="music" name="Music" >
+		<dir subtype="video" theme="mv" name="Music.Video" />
+	</dir>
+	<dir type="software" subtype="common" name="Software" >
+	</dir>
+
+</repository>
+<repository src="./otherDiscRepo.xml" />
+<repository type="application" theme="household" path="D:">
+	<dir type="app-env" name="Program Files" />
+	<dir type="app-env" name="Program Files (x86)"/>
+	<dir type="app-env" scope="game" name="Games"/>
+	<dir type="temp" name="Downloads"/>
+</repository>
+<!--
+	default-subtype='common' ,theme='common'
+	default-type='common' ,default-path=[name]
+-->
+<repository type="application" theme="devlopers" name="码农专用" path="i:">
+	<dir type="lang-env" path="lang" name="">
+		<dir type="lang" name="java">
+			<dir type="product" name="jdk">				
+				<dir type="version" name="1.7.0_03"/>	
+				<dir type="version" name="1.6.0_30"/>								
+			</dir>
+			<dir type="products" name="ext">				
+				<dir type="product" name="hibernate">
+					<dir type="version" name="4.1.0.Final"/>								
+				</dir>
+				<dir type="organization" name="apache">	
+					<dir type="product" name="log4j">
+						<dir type="version" name="1.2.15"/>								
+					</dir>
+					<dir type="product" name="velocity" version="1.7" />
+					
+				</dir>
+				<dir type="product" name="junit" version="4.10" />	
+			</dir>
+		</dir>
+		<dir type="lang" name="python">
+			<dir type="product" name="cpython">
+				<dir type="version" name="2.7.2"/>
+				<dir type="version" name="3.0.2"/>
+			</dir>
+			<dir type="product" name="jython">
+				<dir type="version" name="2.6.2"/>				
+			</dir>
+		</dir>
+		<dir type="lang" name="javascript">
+			<dir type="product" name="jquery">
+				<dir type="product" name="core"></dir>
+				<dir type="product" name="ui">
+					<dir type="version" name="1.2.1"/>	
+					<dir type="version" name="1.4"/>
+				</dir>				
+			</dir>
+			<dir type="product" name="dojo">
+				<dir type="version" name="0.4.4"/>
+				<dir type="version" name="1.1.2"/>	
+				<dir type="version" name="1.7.2"/>	
+			</dir>
+		</dir>
+	</dir>
+	<dir type="app-env" name="app">
+		<dir type="organization" name="apache">	
+			<dir type="product" name="tomcat">
+				<dir type="version" name="7.0.26"/>								
+			</dir>
+			<dir type="product" name="maven">
+				<dir type="version" name="3.0.4"/>								
+			</dir>
+		</dir>
+		<dir type="product" name="eclipse">
+			<dir type="version" name="jee-galileo-win32" />	
+			<dir type="version" name="java-indigo-SR2-win32" />			
+		</dir>
+		<dir type="product" name="netbeans" version="7.1.1" />
+	</dir>
+	<dir type="app-env" name="app2"></dir>
+	<dir type="app-data" name="var">
+		<dir type="organization" name="apache">	
+			<dir type="product" name="tomcat">
+				<dir type="data" name="webapps"/>								
+			</dir>
+			<dir type="product" name="maven">
+				<dir type="data" name="repo"/>								
+			</dir>
+		</dir>
+		<dir type="product" name="eclipse">
+			<dir type="version" name="jee-galileo-win32" />	
+			<dir type="version" name="java-indigo-SR2-win32" />			
+		</dir>
+	</dir>
+	<dir type="temp" name="tmp"></dir>
+	<dir type="docs" name="docs"></dir>
+	<dir type="docs" name="work"></dir>
+
+</repository>
+
+
+<dir type="multimedia" subtype="video" theme="movie series" name="Movies" >
+	<file id="1033" movie-id="0112573">
+		<name>勇敢的心.Braveheart.1995.Bluray.1080p.DTS.4Audio.x264-CHD.mkv</name>
+		<meta key="size" value="8302143232b" />
+		<meta key="source" value="Bluray" />
+		<meta key="duration" value="204min 37s" />
+	</file>
+	<file id="1066" name="盗梦空间.Inception.2010.BDRip.iNT-TLF.part1.mkv">
+		
+		<meta key="size" value="1402143876b" />
+		<meta key="duration" value="67min 37s" />
+	</file>
+	<file id="1067" name="盗梦空间.Inception.2010.BDRip.iNT-TLF.part2.mkv">
+		<meta key="size" value="1308795421b" />
+		<meta key="duration" value="60min 6s" />
+	</file>
+	<dir id="321" series-id="tt111" season="1" name="[内地]红楼梦.a.Dream.in.Red.Mansions.1988">
+		<file-template [start=1] end=32 var='i'>红楼梦.cctv.1988.S01E{i}-yyets.mkv</file-template>
+		<file name="红楼梦.cctv.1988.S01E30.fixed-yyets.mkv" episode="30">
+		
+		<dir season='' name="xiabanbu">
+			
+		</dir>
+	</dir>
+</dir>
+
+
+
+<movies>
+	<movie id ="" related-file="1033">
+		<unique-=>
+		<id>0112573<id>
+		<imdb id="tt0112573">
+			<rating user="ALL">8.4</rating>
+			<rating user="hzk">8</rating>
+		</imdb>
+		<douban>
+		</douban>
+	</movie>
+	<movie id ="3333333">
+		<related-files num-parts='2'>
+			<file id="1066" [type="main"] part='1'/>
+			<file id="1066" type="subtitle" part='1'/>
+			<file id="1066" type="main" part='2'/>
+			<file id="1067" type="audio" part='2'/>
+			<file id="1450" type="sample" [part='0']/>
+		</related-files>
+		
+		<id>0112573<id>
+		<meta>
+			<actors/>
+			<producer/>
+			<publish-year>1995</publish-year>
+			<imdb id="tt0112573">
+				<rating user="ALL">8.4</rating>
+				<rating user="hzk">8</rating>
+			</imdb>
+			<douban>
+			</douban>
+		</meta>
+	</movie>
+</movies>
+<serieses>
+	<series id="111">
+		<meta />
+		<season related-dir="321">
+			
+		<season>
+	</series>
+	<series id="111">only season
+		
+	</series>
+</serieses>
