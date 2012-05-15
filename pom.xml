@@ -20,5 +20,18 @@
   		<version>4.10</version>
   		<scope>test</scope>
   	</dependency>
+  	<dependency>
+        <groupId>org.eclipse.swt</groupId>
+        <artifactId>org.eclipse.swt.win32.win32.x86_64</artifactId>
+        <version>3.7.2</version>
+    </dependency>
   </dependencies>
+  
+  <repositories>
+
+    <repository>
+        <id>swt-repo</id>
+        <url>https://swt-repo.googlecode.com/svn/repo/</url>
+    </repository>
+</repositories>
 </project>
