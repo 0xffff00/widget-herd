@@ -1,5 +1,5 @@
-<repository xmlns="repo" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="repo repo.xsd ">
+<ab xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://www.example.org/t1 t1.xsd ">
 
 	<!-- default-subtype='common' ,theme='common' default-type='common' ,default-path=[name] -->
 
@@ -35,4 +35,4 @@
 
 
 
-</repository>
+</ab>
