@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-   targetNamespace="repo" xmlns="repo"
-	elementFormDefault="qualified">
+	targetNamespace="repo" xmlns="repo" elementFormDefault="qualified">
 	
-	<xs:element name="repository">
-		<xs:complexType>
-			<xs:choice>
-				<xs:element name="file"></xs:element>
-				<xs:element name="dir"></xs:element>
-			</xs:choice>
-		
-		</xs:complexType>
-	</xs:element>
+	<xs:element name="repositories" type="repositoriesType" />
+	<xs:element name="repository" type="repositoryType" />
+	<xs:complexType name="repositoriesType">
+		<xs:sequence>
+			<xs:element name="repository" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>	
+	<xs:complexType name="repositoryType">	
+		<xs:all>
+			<xs:element name="specifiedDirectories"  type="pureDirType" />
+			<xs:element name="foo" minOccurs="0" />
+		</xs:all>
+
+	</xs:complexType>
+	<xs:complexType name="pureDirType">
+		<xs:sequence>
+			<xs:element name="dir" type="pureDirType" maxOccurs="unbounded"/>			
+		</xs:sequence>
+	</xs:complexType>	
 
 </xs:schema>
