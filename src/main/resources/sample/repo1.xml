@@ -1,0 +1,13 @@
+<repositories xmlns="repos" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="repos repos.xsd">
+	<repository category="multimedia">		
+		<specifiedDirectories>
+			
+		</specifiedDirectories>
+	</repository>
+	<repository name="" category="software">
+       	<specifiedDirectories>
+		
+		</specifiedDirectories>
+     </repository>
+</repositories>

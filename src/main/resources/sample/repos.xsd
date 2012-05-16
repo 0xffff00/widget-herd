@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="repos" xmlns="repos" elementFormDefault="qualified">
+
+	<xs:element name="repositories" type="repositoriesType" />
+	<xs:complexType name="repositoriesType">
+		<xs:sequence>
+			<xs:element name="repository" type="repositoryType"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="repositoryType">
+		<xs:all>
+			<xs:element name="name" minOccurs="0">
+				<xs:complexType>
+					<xs:attribute name="lang"></xs:attribute>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="specifiedDirectories" type="pureDirType" />
+			<xs:element name="foo" minOccurs="0" />
+		</xs:all>
+		<xs:attribute name="name" use="optional" type="xs:string" />
+
+		<xs:attribute name="category" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="software"></xs:enumeration>
+					<xs:enumeration value="multimedia"></xs:enumeration>
+
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+
+	<xs:complexType name="pureDirType">
+		<xs:sequence>
+			<xs:element name="dir" type="pureDirType" minOccurs="0"
+				maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+</xs:schema>
