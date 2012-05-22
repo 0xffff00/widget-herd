@@ -20,7 +20,7 @@ import org.eclipse.swt.widgets.Combo;
 
 public class HashUI {
 
-	protected Shell shell;
+	protected Shell shlHashUi;
 	protected Display display;
 	private Combo cmbBrowse;
 	private Text textResult;
@@ -56,9 +56,9 @@ public class HashUI {
 	public void open() {
 		display = Display.getDefault();
 		createContents();
-		shell.open();
-		shell.layout();
-		while (!shell.isDisposed()) {
+		shlHashUi.open();
+		shlHashUi.layout();
+		while (!shlHashUi.isDisposed()) {
 			if (!display.readAndDispatch()) {
 				display.sleep();
 			}
@@ -69,16 +69,16 @@ public class HashUI {
 	 * Create contents of the window.
 	 */
 	protected void createContents() {
-		shell = new Shell();
-		shell.setSize(450, 300);
-		shell.setText("SWT Application");
-		shell.setLayout(new FormLayout());
+		shlHashUi = new Shell();
+		shlHashUi.setSize(450, 300);
+		shlHashUi.setText("Hash UI");
+		shlHashUi.setLayout(new FormLayout());
 
-		cmbBrowse = new Combo(shell, SWT.BORDER);
+		cmbBrowse = new Combo(shlHashUi, SWT.BORDER);
 		FormData fd_cmbBrowse = new FormData();
 		cmbBrowse.setLayoutData(fd_cmbBrowse);
 
-		Button btnBrowse = new Button(shell, SWT.NONE);
+		Button btnBrowse = new Button(shlHashUi, SWT.NONE);
 		fd_cmbBrowse.right = new FormAttachment(btnBrowse, -6);
 		fd_cmbBrowse.top = new FormAttachment(btnBrowse, 2, SWT.TOP);
 		FormData fd_btnBrowse = new FormData();
@@ -88,7 +88,7 @@ public class HashUI {
 		btnBrowse.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent e) {
-				FileDialog dialog = new FileDialog(shell, SWT.OPEN);
+				FileDialog dialog = new FileDialog(shlHashUi, SWT.OPEN);
 				dialog.setFilterNames(new String[] { "All Files (*.*)" });
 				dialog.setFilterExtensions(new String[] { "*.*" });
 				String p = dialog.open();
@@ -99,7 +99,7 @@ public class HashUI {
 		});
 		btnBrowse.setText("Browse");
 
-		Group grpHashItems = new Group(shell, SWT.NONE);
+		Group grpHashItems = new Group(shlHashUi, SWT.NONE);
 		grpHashItems.setVisible(false);	
 		fd_cmbBrowse.left = new FormAttachment(grpHashItems, 0, SWT.LEFT);
 		FormData fd_grpHashItems = new FormData();
@@ -118,7 +118,7 @@ public class HashUI {
 		btnMd.setBounds(10, 45, 70, 17);
 		btnMd.setText("MD5");
 
-		Button btnCalculate = new Button(shell, SWT.NONE);		
+		Button btnCalculate = new Button(shlHashUi, SWT.NONE);		
 		FormData fd_btnCalculate = new FormData();
 		fd_btnCalculate.bottom = new FormAttachment(grpHashItems, -28,
 				SWT.BOTTOM);
@@ -177,7 +177,7 @@ public class HashUI {
 		});
 		btnCalculate.setText("Calculate");
 
-		textResult = new Text(shell, SWT.BORDER);
+		textResult = new Text(shlHashUi, SWT.BORDER);
 		FormData fd_textResult = new FormData();
 		fd_textResult.top = new FormAttachment(grpHashItems, 46);
 		fd_textResult.left = new FormAttachment(0, 5);
@@ -185,7 +185,7 @@ public class HashUI {
 		textResult.setLayoutData(fd_textResult);
 		textResult.setEditable(false);
 		// textResult.setVisible(false);
-		progressBar = new ProgressBar(shell, SWT.NONE);
+		progressBar = new ProgressBar(shlHashUi, SWT.NONE);
 		FormData fd_progressBar = new FormData();
 		fd_progressBar.right = new FormAttachment(100, -10);
 		fd_progressBar.left = new FormAttachment(0, 5);
@@ -193,7 +193,7 @@ public class HashUI {
 		progressBar.setLayoutData(fd_progressBar);
 		progressBar.setVisible(false);
 
-		lblPgbar = new Label(shell, SWT.NONE);
+		lblPgbar = new Label(shlHashUi, SWT.NONE);
 		fd_textResult.bottom = new FormAttachment(lblPgbar, -6);
 		FormData fd_lblPgbar = new FormData();
 		fd_lblPgbar.right = new FormAttachment(100, -220);
@@ -201,7 +201,7 @@ public class HashUI {
 		fd_lblPgbar.left = new FormAttachment(0, 5);
 		lblPgbar.setLayoutData(fd_lblPgbar);
 		
-		btnPause = new Button(shell, SWT.NONE);
+		btnPause = new Button(shlHashUi, SWT.NONE);
 		btnPause.setEnabled(false);
 		btnPause.addMouseListener(new MouseAdapter() {
 			@Override
@@ -227,7 +227,7 @@ public class HashUI {
 		btnPause.setLayoutData(fd_btnPause);
 		btnPause.setText("Pause");
 		
-		lblTime = new Label(shell, SWT.NONE);
+		lblTime = new Label(shlHashUi, SWT.NONE);
 		FormData fd_lblTime = new FormData();
 		fd_lblTime.left = new FormAttachment(100, -106);
 		fd_lblTime.top = new FormAttachment(textResult, 6);

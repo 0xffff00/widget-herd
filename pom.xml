@@ -22,7 +22,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.swt</groupId>
-			<artifactId>org.eclipse.swt.win32.win32.x86_64</artifactId>
+			<artifactId>org.eclipse.swt.win32.win32.x86</artifactId>
 			<version>3.7.2</version>
 		</dependency>
 	
@@ -30,6 +30,31 @@
 			<groupId>dom4j</groupId>
 			<artifactId>dom4j</artifactId>
 			<version>1.6.1</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.14</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jface</groupId>
+			<artifactId>databinding</artifactId>
+			<version>1.5.0.I20100907-0800</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.core.databinding</groupId>
+			<artifactId>observable</artifactId>
+			<version>1.4.0.I20110111-0800</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.equinox</groupId>
+			<artifactId>common</artifactId>
+			<version>3.6.0.v20110523</version>
 		</dependency>
 	</dependencies>
 
@@ -46,8 +71,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.3.2</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>1.7</source>
+					<target>1.7</target>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -59,7 +84,7 @@
 					</descriptorRefs>
 					<archive>
 						<manifest>
-							<mainClass>hzk.trial.Win</mainClass>
+							<mainClass>hzk.util.HashUI</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
