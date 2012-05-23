@@ -2,7 +2,7 @@ package hzk.util.hash;
 
 import java.util.Calendar;
 
-public class ProcessEvent {
+public class ProgressEvent {
 	private int newValue,maximum;
 	private boolean isCompleted;
 	private String result;

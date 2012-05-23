@@ -5,27 +5,12 @@ import java.io.RandomAccessFile;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
-import java.util.Collection;
-import java.util.LinkedList;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class JFileHasher implements ProgressAppreciable {
+public class JFileHasher extends ProgressObservableImpl {
 	private Log log = LogFactory.getLog(this.getClass());
-	protected Collection<ProgressListener> listeners;
-
 	private FileHashTask task;
-
-	public JFileHasher() {
-		listeners = new LinkedList<ProgressListener>();
-	}
-
-	@Override
-	public void addListener(ProgressListener listener) {
-		listeners.add(listener);
-
-	}
 
 	public void startHashTask(String path) {
 		if (task == null)
@@ -121,20 +106,17 @@ class FileHashTask extends Thread {
 	}
 
 	private void publish() {
+		ProgressEvent e = new ProgressEvent();
+		e.setBeginTime(beginTime);
+		e.setOccurredTime(Calendar.getInstance());
+		e.setNewValue(pgVal);
+		e.setMaximum(pgMax);
+		e.setResult(result);
 
-		for (ProgressListener li : context.listeners) {
-			ProcessEvent e = new ProcessEvent();
-			e.setBeginTime(beginTime);
-			e.setOccurredTime(Calendar.getInstance());
-			e.setNewValue(pgVal);
-			e.setMaximum(pgMax);
-			e.setResult(result);
+		String stat = String.valueOf(fpos / 1024) + "KB/"
+				+ String.valueOf(flen / 1024) + "KB";
+		e.setStatus(stat);
+		context.notifyObservers(e);
 
-			String stat = String.valueOf(fpos / 1024) + "KB/"
-					+ String.valueOf(flen / 1024) + "KB";
-
-			e.setStatus(stat);
-			li.progressUpdated(e);
-		}
 	}
 }

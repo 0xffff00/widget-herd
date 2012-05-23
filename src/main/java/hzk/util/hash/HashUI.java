@@ -143,9 +143,9 @@ public class HashUI {
 				btnPause.setEnabled(true);
 				final int pbMaximum = progressBar.getMaximum();
 				hasher = new JFileHasher();
-				hasher.addListener(new ProgressListener() {
+				hasher.addObserver(new ProgressObserver() {
 					@Override
-					public void progressUpdated(final ProcessEvent e) {
+					public void progressUpdated(final ProgressEvent e) {
 						final int sel = pbMaximum * e.getNewValue() / e.getMaximum();
 						display.asyncExec(new Runnable() {
 							public void run() {
