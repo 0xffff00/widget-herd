@@ -60,7 +60,6 @@ class FileHashTask extends Thread {
 		filePath = filepath;
 	}
 
-	int interval = 300;
 	boolean threadSuspended = false;
 
 	public void toggleStatus() {

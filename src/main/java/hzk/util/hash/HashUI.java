@@ -29,6 +29,7 @@ public class HashUI {
 	private Button btnPause;
 	private Label lblTime;
 	private JFileHasher hasher;
+
 	// private Model model=new Model();
 
 	/**
@@ -100,7 +101,7 @@ public class HashUI {
 		btnBrowse.setText("Browse");
 
 		Group grpHashItems = new Group(shlHashUi, SWT.NONE);
-		grpHashItems.setVisible(false);	
+		grpHashItems.setVisible(false);
 		fd_cmbBrowse.left = new FormAttachment(grpHashItems, 0, SWT.LEFT);
 		FormData fd_grpHashItems = new FormData();
 		fd_grpHashItems.bottom = new FormAttachment(0, 102);
@@ -118,7 +119,7 @@ public class HashUI {
 		btnMd.setBounds(10, 45, 70, 17);
 		btnMd.setText("MD5");
 
-		Button btnCalculate = new Button(shlHashUi, SWT.NONE);		
+		Button btnCalculate = new Button(shlHashUi, SWT.NONE);
 		FormData fd_btnCalculate = new FormData();
 		fd_btnCalculate.bottom = new FormAttachment(grpHashItems, -28,
 				SWT.BOTTOM);
@@ -128,10 +129,9 @@ public class HashUI {
 		btnCalculate.setLayoutData(fd_btnCalculate);
 
 		btnCalculate.addMouseListener(new MouseAdapter() {
-			
 
 			@Override
-			public void mouseUp(MouseEvent e) {				
+			public void mouseUp(MouseEvent e) {
 				String path = cmbBrowse.getText();
 				cmbBrowse.add(path);
 				if (path == null) {
@@ -146,22 +146,25 @@ public class HashUI {
 				hasher.addObserver(new ProgressObserver() {
 					@Override
 					public void progressUpdated(final ProgressEvent e) {
-						final int sel = pbMaximum * e.getNewValue() / e.getMaximum();
+						final int sel = pbMaximum * e.getNewValue()
+								/ e.getMaximum();
 						display.asyncExec(new Runnable() {
 							public void run() {
-								if (progressBar.isDisposed()) return;
-								progressBar.setSelection(sel);								 
-								 lblPgbar.setText(e.getStatus());
-								 lblTime.setText(e.getTimeElapsed());
-								 
+								if (progressBar.isDisposed())
+									return;
+								progressBar.setSelection(sel);
+								lblPgbar.setText(e.getStatus());
+								lblTime.setText(e.getTimeElapsed());
+
 							}
 						});
-						
+
 						if (e.getNewValue() >= e.getMaximum()) {
 							display.asyncExec(new Runnable() {
-								public void run() {								
-									 textResult.setText("SHA1:   "+e.getResult());
-									 btnPause.setEnabled(false);
+								public void run() {
+									textResult.setText("SHA1:   "
+											+ e.getResult());
+									btnPause.setEnabled(false);
 								}
 							});
 
@@ -169,7 +172,6 @@ public class HashUI {
 
 					}
 
-				
 				});
 				hasher.startHashTask(path);
 
@@ -200,24 +202,24 @@ public class HashUI {
 		fd_lblPgbar.bottom = new FormAttachment(100, -33);
 		fd_lblPgbar.left = new FormAttachment(0, 5);
 		lblPgbar.setLayoutData(fd_lblPgbar);
-		
+
 		btnPause = new Button(shlHashUi, SWT.NONE);
 		btnPause.setEnabled(false);
 		btnPause.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent e) {
-				if ("Pause".equals(btnPause.getText())){
+				if ("Pause".equals(btnPause.getText())) {
 					btnPause.setEnabled(false);
 					hasher.pauseCurrentTask();
 					btnPause.setText("Resume");
 					btnPause.setEnabled(true);
-				}else{
+				} else {
 					btnPause.setEnabled(false);
 					hasher.resumeCurrentTask();
 					btnPause.setText("Pause");
 					btnPause.setEnabled(true);
 				}
-				
+
 			}
 		});
 		FormData fd_btnPause = new FormData();
@@ -226,7 +228,7 @@ public class HashUI {
 		fd_btnPause.left = new FormAttachment(btnBrowse, 0, SWT.LEFT);
 		btnPause.setLayoutData(fd_btnPause);
 		btnPause.setText("Pause");
-		
+
 		lblTime = new Label(shlHashUi, SWT.NONE);
 		FormData fd_lblTime = new FormData();
 		fd_lblTime.left = new FormAttachment(100, -106);
