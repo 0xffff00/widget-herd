@@ -1,11 +1,15 @@
-package hzk.util.hash;
+package hzk.util;
 
 import java.util.Collection;
 import java.util.HashSet;
-
-public class ProgressObservableImpl implements ProgressObservable {
+/**
+ * 进度可观察接口的一个简单实现
+ * @author HZK
+ *
+ */
+public class ProgressObservableDefaultImpl implements ProgressObservable {
 	private Collection<ProgressObserver> observers;
-	public ProgressObservableImpl(){
+	public ProgressObservableDefaultImpl(){
 		observers=new HashSet<ProgressObserver>();
 	}
 	

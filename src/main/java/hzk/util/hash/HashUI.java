@@ -1,5 +1,10 @@
 package hzk.util.hash;
 
+import hzk.util.ProgressEvent;
+import hzk.util.ProgressObserver;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
@@ -26,10 +31,12 @@ public class HashUI {
 	private Text textResult;
 	private ProgressBar progressBar;
 	private Label lblPgbar;
+	private Button btnCalculate;
 	private Button btnPause;
+	private Button btnCancel;
 	private Label lblTime;
-	private JFileHasher hasher;
-
+	private JFileHashTask hashTask;
+	protected Log log = LogFactory.getLog(this.getClass());
 	// private Model model=new Model();
 
 	/**
@@ -119,11 +126,10 @@ public class HashUI {
 		btnMd.setBounds(10, 45, 70, 17);
 		btnMd.setText("MD5");
 
-		Button btnCalculate = new Button(shlHashUi, SWT.NONE);
+		btnCalculate = new Button(shlHashUi, SWT.NONE);
 		FormData fd_btnCalculate = new FormData();
-		fd_btnCalculate.bottom = new FormAttachment(grpHashItems, -28,
-				SWT.BOTTOM);
-		fd_btnCalculate.left = new FormAttachment(100, -133);
+		fd_btnCalculate.bottom = new FormAttachment(0, 71);
+		fd_btnCalculate.left = new FormAttachment(100, -152);
 		fd_btnCalculate.top = new FormAttachment(0, 38);
 		fd_btnCalculate.right = new FormAttachment(100, -10);
 		btnCalculate.setLayoutData(fd_btnCalculate);
@@ -141,13 +147,15 @@ public class HashUI {
 				progressBar.setSelection(0);
 				textResult.setText("");
 				btnPause.setEnabled(true);
+				btnCancel.setEnabled(true);
+				btnCalculate.setEnabled(false);
 				final int pbMaximum = progressBar.getMaximum();
-				hasher = new JFileHasher();
-				hasher.addObserver(new ProgressObserver() {
+				
+				hashTask=JFileHasher.createTask(path);
+				hashTask.addObserver(new ProgressObserver() {
 					@Override
 					public void progressUpdated(final ProgressEvent e) {
-						final int sel = pbMaximum * e.getNewValue()
-								/ e.getMaximum();
+						final int sel = (int) (pbMaximum * e.getProgressRate());
 						display.asyncExec(new Runnable() {
 							public void run() {
 								if (progressBar.isDisposed())
@@ -159,21 +167,24 @@ public class HashUI {
 							}
 						});
 
-						if (e.getNewValue() >= e.getMaximum()) {
+						if (e.isTerminated()){
 							display.asyncExec(new Runnable() {
 								public void run() {
-									textResult.setText("SHA1:   "
-											+ e.getResult());
+									textResult.setText(e.getResult());
 									btnPause.setEnabled(false);
+									btnCancel.setEnabled(false);
+									btnCalculate.setEnabled(true);
+									progressBar.setVisible(false);
+									lblPgbar.setText("");
+		
 								}
 							});
-
 						}
 
 					}
 
 				});
-				hasher.startHashTask(path);
+				hashTask.start();
 
 			}
 		});
@@ -209,23 +220,17 @@ public class HashUI {
 			@Override
 			public void mouseUp(MouseEvent e) {
 				if ("Pause".equals(btnPause.getText())) {
-					btnPause.setEnabled(false);
-					hasher.pauseCurrentTask();
 					btnPause.setText("Resume");
-					btnPause.setEnabled(true);
 				} else {
-					btnPause.setEnabled(false);
-					hasher.resumeCurrentTask();
 					btnPause.setText("Pause");
-					btnPause.setEnabled(true);
 				}
-
+				hashTask.pauseOrResume();
+				
 			}
 		});
 		FormData fd_btnPause = new FormData();
-		fd_btnPause.right = new FormAttachment(btnBrowse, 0, SWT.RIGHT);
-		fd_btnPause.top = new FormAttachment(btnCalculate, 6);
-		fd_btnPause.left = new FormAttachment(btnBrowse, 0, SWT.LEFT);
+		fd_btnPause.right = new FormAttachment(100, -10);
+		fd_btnPause.top = new FormAttachment(0, 71);
 		btnPause.setLayoutData(fd_btnPause);
 		btnPause.setText("Pause");
 
@@ -237,6 +242,25 @@ public class HashUI {
 		lblTime.setLayoutData(fd_lblTime);
 		btnPause.setText("Pause");
 		lblTime.setLayoutData(fd_lblTime);
+		
+		btnCancel = new Button(shlHashUi, SWT.NONE);
+		fd_btnPause.left = new FormAttachment(btnCancel, 6);
+		btnCancel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseUp(MouseEvent arg0) {
+				hashTask.cancelTask();
+				//btnCancel.setEnabled(false);
+				
+
+			}
+		});
+		btnCancel.setEnabled(false);
+		FormData fd_btnCancel = new FormData();
+		fd_btnCancel.left = new FormAttachment(btnCalculate, 10, SWT.LEFT);
+		fd_btnCancel.top = new FormAttachment(0, 71);
+		fd_btnCancel.right = new FormAttachment(100, -78);
+		btnCancel.setLayoutData(fd_btnCancel);
+		btnCancel.setText("Cancel");
 
 	}
 }
