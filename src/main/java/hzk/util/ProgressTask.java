@@ -35,7 +35,7 @@ import org.apache.commons.logging.LogFactory;
  *   	//循环结束时发布一个成功或取消事件
  *   	publish(COMPLETE)
  * </pre>
- * 
+ * @author HZK
  * @version 0.7
  * 
  */

@@ -2,11 +2,11 @@ package hzk.util.hash;
 
 public class HashUtil {
 	/**
-	 * ×ª³É16½øÖÆ×Ö·û´®(Ğ¡Ğ´×ÖÄ¸ĞÎÊ½)
+	 * è½¬æˆ16è¿›åˆ¶å­—ç¬¦ä¸²(å°å†™å­—æ¯å½¢å¼)
 	 * 
 	 * @param b
-	 *            ×Ö½ÚÊı×é
-	 * @return 16½øÖÆ×Ö·û´®
+	 *            å­—èŠ‚æ•°ç»„
+	 * @return 16è¿›åˆ¶å­—ç¬¦ä¸²
 	 */
 	public static String toHexString(byte[] b) {
 		if (b == null) {
