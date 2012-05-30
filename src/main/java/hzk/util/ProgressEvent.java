@@ -11,7 +11,7 @@ public class ProgressEvent {
 	private char type;
 	private int newValue,maximum=100;
 	private String result;
-	private Calendar beginTime;
+	private long taskRunMillisec;
 	private Calendar occurredTime;	
 	private String status;
 	
@@ -22,11 +22,9 @@ public class ProgressEvent {
 	public static final char CANCEL = 15;
 	public static final char PAUSE = 21;
 	public static final char RESUME = 23;
-	public Calendar getBeginTime() {
-		return beginTime;
-	}
-	public void setBeginTime(Calendar beginTime) {
-		this.beginTime = beginTime;
+
+	public ProgressEvent(){
+		occurredTime=Calendar.getInstance();
 	}
 	public int getNewValue() {
 		return newValue;
@@ -60,9 +58,8 @@ public class ProgressEvent {
 		this.status = status;
 	}
 		
-	public String getTimeElapsed(){
-		long milli=occurredTime.getTimeInMillis()-beginTime.getTimeInMillis();
-		return String.valueOf(milli/1000.0)+"sec";
+	public String getTaskRunTimeInSec(){
+		return String.valueOf(taskRunMillisec/1000f)+"sec";
 		
 		
 	}
@@ -102,5 +99,11 @@ public class ProgressEvent {
 		}else{
 			return 0;
 		}
+	}
+	public long getTaskRunMillisec() {
+		return taskRunMillisec;
+	}
+	public void setTaskRunMillisec(long taskRunMillisec) {
+		this.taskRunMillisec = taskRunMillisec;
 	}
 }

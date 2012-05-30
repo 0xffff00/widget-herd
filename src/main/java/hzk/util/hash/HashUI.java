@@ -162,7 +162,7 @@ public class HashUI {
 									return;
 								progressBar.setSelection(sel);
 								lblPgbar.setText(e.getStatus());
-								lblTime.setText(e.getTimeElapsed());
+								lblTime.setText(e.getTaskRunTimeInSec());
 
 							}
 						});
@@ -248,7 +248,7 @@ public class HashUI {
 		btnCancel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent arg0) {
-				hashTask.cancelTask();
+				hashTask.stop();
 				//btnCancel.setEnabled(false);
 				
 

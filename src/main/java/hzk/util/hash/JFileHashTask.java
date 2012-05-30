@@ -7,8 +7,6 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Calendar;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -22,7 +20,7 @@ public class JFileHashTask extends ProgressTask{
 	private long fpos, flen;	
 	private RandomAccessFile f;
 	private MessageDigest md;
-	private Calendar beginTime;
+
 	
 	
 	protected JFileHashTask(String filepath) {
@@ -32,7 +30,6 @@ public class JFileHashTask extends ProgressTask{
 	
 	@Override
 	public void run() {
-		beginTime = Calendar.getInstance();
 		byte[] buffer = new byte[BUFFER_SIZE_OF_BYTE];
 		try {
 			f = new RandomAccessFile(filePath, "r");
@@ -43,12 +40,12 @@ public class JFileHashTask extends ProgressTask{
 			pgMax = (int) ((flen - 1) / BUFFER_SIZE_OF_BYTE) + 1;
 			int nread = 0;
 			while ((nread = f.read(buffer)) != -1) {
-				if (isCancelled()) {
+				if (isStopped()) {
 					break;
 				}
 				if (isPaused()){
 					publish(ProgressEvent.PAUSE);
-					letThreadWaiting();
+					letThreadWait();
 				}
 				md.update(buffer, 0, nread);
 				pgVal++;
@@ -56,7 +53,7 @@ public class JFileHashTask extends ProgressTask{
 				publish();
 			}
 			
-			if (isCancelled()){
+			if (isStopped()){
 				result= "Hash Canncelled";
 				publish(ProgressEvent.CANCEL);
 			}else{
@@ -74,8 +71,7 @@ public class JFileHashTask extends ProgressTask{
 	@Override
 	protected ProgressEvent createEvent() {
 		ProgressEvent e = new ProgressEvent();
-		e.setBeginTime(beginTime);
-		e.setOccurredTime(Calendar.getInstance());
+		e.setTaskRunMillisec(getRunMillisec());
 		e.setNewValue(pgVal);
 		e.setMaximum(pgMax);
 		e.setResult(result);
