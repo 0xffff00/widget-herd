@@ -1,5 +1,6 @@
 package hzk.util;
 
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -43,7 +44,9 @@ public abstract class ProgressTask extends Thread implements ProgressObservable 
 	protected Log log = LogFactory.getLog(this.getClass());
 	private boolean threadPaused = false;
 	private boolean threadCancelled = false;
-
+	private Calendar firstBeginTime;
+	private Calendar lastBeginTime;
+	private long millisecElapsed;
 	private Collection<ProgressObserver> observers;
 
 	public ProgressTask() {

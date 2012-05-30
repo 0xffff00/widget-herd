@@ -15,7 +15,8 @@ public class ProgressEvent {
 	private Calendar occurredTime;	
 	private String status;
 	
-	public static final char UPDATE = 0;
+	public static final char BEGIN=0;
+	public static final char UPDATE = 1;	
 	public static final char ERROR = 4;
 	public static final char COMPLETE = 12;
 	public static final char CANCEL = 15;
