@@ -1,14 +1,13 @@
-mvn install:install-file -Dfile=D:/app/eclipse/java-indigo-SR2-win32/plugins/org.eclipse.core.databinding_1.4.0.I20110111-0800.jar -DgroupId=org.eclipse.core -DartifactId=databinding -Dversion=1.4.0.I20110111-0800 -Dpackaging=jar
+set p=D:/app/eclipse/java-indigo-SR2-win32/plugins
+set p=D:/opt/eclipse/java-indigo-SR2-win32/plugins
+
+mvn install:install-file -Dfile=%p%/org.eclipse.swt.win32.win32.x86_3.7.2.v3740f.jar -DgroupId=org.eclipse.swt -DartifactId=win32.win32.x86 -Dversion=3.7.2.v3740f -Dpackaging=jar
+mvn install:install-file -Dfile=%p%/org.eclipse.core.databinding_1.4.0.I20110111-0800.jar -DgroupId=org.eclipse.core -DartifactId=databinding -Dversion=1.4.0.I20110111-0800 -Dpackaging=jar
+mvn install:install-file -Dfile=%p%/org.eclipse.core.databinding.observable_1.4.0.I20110222-0800.jar -DgroupId=org.eclipse.core.databinding -DartifactId=observable -Dversion=1.4.0.I20110222-0800 -Dpackaging=jar
+mvn install:install-file -Dfile=%p%/org.eclipse.jface.databinding_1.5.0.I20100907-0800.jar  -DgroupId=org.eclipse.jface -DartifactId=databinding -Dversion=1.5.0.I20100907-0800 -Dpackaging=jar
+mvn install:install-file -Dfile=%p%/org.eclipse.core.runtime_3.7.0.v20110110.jar -DgroupId=org.eclipse.core -DartifactId=runtime -Dversion=3.7.0.v20110110 -Dpackaging=jar
+mvn install:install-file -Dfile=%p%/org.eclipse.equinox.common_3.6.0.v20110523.jar -DgroupId=org.eclipse.equinox -DartifactId=common -Dversion=3.6.0.v20110523 -Dpackaging=jar
 
 
-mvn install:install-file -Dfile=D:/app/eclipse/java-indigo-SR2-win32/plugins/org.eclipse.core.databinding.observable_1.4.0.I20110222-0800.jar -DgroupId=org.eclipse.core.databinding -DartifactId=observable -Dversion=1.4.0.I20110111-0800 -Dpackaging=jar
 
-mvn install:install-file -Dfile=D:/app/eclipse/java-indigo-SR2-win32/plugins/org.eclipse.jface.databinding_1.5.0.I20100907-0800.jar  -DgroupId=org.eclipse.jface -DartifactId=databinding -Dversion=1.5.0.I20100907-0800 -Dpackaging=jar
 
-D:/app/eclipse/java-indigo-SR2-win32/plugins/org.eclipse.swt.win32.win32.x86_3.7.2.v3740f.jar
-D:/app/eclipse/java-indigo-SR2-win32/plugins/org.eclipse.core.runtime_3.7.0.v20110110.jar
-D:/app/eclipse/java-indigo-SR2-win32/plugins/org.eclipse.equinox.common_3.6.0.v20110523.jar
-
-mvn install:install-file -Dfile=D:/app/eclipse/java-indigo-SR2-win32/plugins/org.eclipse.core.runtime_3.7.0.v20110110.jar -DgroupId=org.eclipse.core -DartifactId=runtime -Dversion=3.7.0.v20110110 -Dpackaging=jar
-
-mvn install:install-file -Dfile=D:/app/eclipse/java-indigo-SR2-win32/plugins/org.eclipse.equinox.common_3.6.0.v20110523.jar -DgroupId=org.eclipse.equinox -DartifactId=common -Dversion=3.6.0.v20110523 -Dpackaging=jar

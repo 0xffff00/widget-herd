@@ -4,11 +4,9 @@ import java.util.Collection;
 import java.util.HashSet;
 
 /**
- * <h1>有进度状态监测能力的任务线程类</h1>
+ * <h1>有进度状态监测能力的任务类</h1>
  * <p>
- * 可以被暂停，继续，开始，取消。这些操作都应该在运行代码块内部控制。
- * </p>
- * <p>
+ * 要拥有进度状态监测能力，必须在运行代码块中进行事件发布,即<code>publish(char)</code>方法 <br>
  * 建议其子类实现<code>run()</code> 时，在耗时的或需要计时计数的每个循环块开始前，进行任务状态的例行检查 <br>
  * <code>run()</code>的具体实现示例：
  * </p>
@@ -32,6 +30,7 @@ import java.util.HashSet;
  *   	//循环结束时发布一个成功或取消事件
  *   	publish(COMPLETE)
  * </pre>
+ * 
  * @author HZK
  * @version 0.7
  * 
@@ -94,6 +93,5 @@ public abstract class ProgressTask extends Task implements ProgressObservable {
 	 * @return 新进程事件
 	 */
 	protected abstract ProgressEvent createEvent();
-
 
 }

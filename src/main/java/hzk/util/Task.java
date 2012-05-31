@@ -12,15 +12,32 @@ import org.apache.commons.logging.LogFactory;
  * 有计时功能<br>
  * 本类采用包装机制和Proxy设计模式。
  * </p>
+ * 使用Task代替原生的Thread的好处是：多了暂停和继续的功能，但这必须由Task的子类实现<br>
+ * <code>run()</code>的具体实现示例：
+ * </p>
  * 
+ * <pre>
+ * 	while (condition){
+ *   	//检查当前任务是否需要被取消
+ * 	 if (isCancelled()) {
+ * 		break;
+ * 	 }
+ * 	 //检查当前任务是否需要暂停
+ * 	 if （isPaused()) { 		
+ * 		letThreadWaiting();
+ * 	 } 
+ *   	...
+ * 	 	...
+ * 	 
+ * 	}
+ * </pre>
  * @author HZK
  * @version 201206
  */
 public abstract class Task implements Runnable {
 	protected Log log = LogFactory.getLog(this.getClass());
 	private Thread thread;
-	private long runMillisecBLS; // accumulated run milliseconds before last
-									// start
+	private long runMillisecBLS; // accumulated run milliseconds before last start
 	private Calendar firstStartTime;
 	private Calendar lastStartTime;
 	private Calendar lastStopTime;
@@ -39,7 +56,7 @@ public abstract class Task implements Runnable {
 		});
 	}
 
-	public void start() {
+	public synchronized void start() {
 		runMillisecBLS = resumeCount = 0;
 		lastStartTime = firstStartTime = Calendar.getInstance();
 		thread.start();
@@ -132,6 +149,10 @@ public abstract class Task implements Runnable {
 		return thread.isAlive();
 	}
 
+	/**
+	 * 获取该任务目前已经运行的累计时间
+	 * @return 已运行累计时间的毫秒值
+	 */
 	public long getRunMillisec() {
 		if (!isPaused() && lastStartTime != null)
 			return runMillisecBLS + System.currentTimeMillis()
