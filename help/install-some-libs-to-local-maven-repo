@@ -8,6 +8,8 @@ mvn install:install-file -Dfile=%p%/org.eclipse.jface.databinding_1.5.0.I2010090
 mvn install:install-file -Dfile=%p%/org.eclipse.core.runtime_3.7.0.v20110110.jar -DgroupId=org.eclipse.core -DartifactId=runtime -Dversion=3.7.0.v20110110 -Dpackaging=jar
 mvn install:install-file -Dfile=%p%/org.eclipse.equinox.common_3.6.0.v20110523.jar -DgroupId=org.eclipse.equinox -DartifactId=common -Dversion=3.6.0.v20110523 -Dpackaging=jar
 
+set ext=D:/lang/java/ext
+mvn install:install-file -Dfile=%ext%/jaxen/1.1.4/jaxen-1.1.4.jar -DgroupId=jaxen -DartifactId=jaxen -Dversion=1.1.4 -Dpackaging=jar
 
 
 

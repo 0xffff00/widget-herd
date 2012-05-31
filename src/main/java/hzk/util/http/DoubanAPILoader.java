@@ -49,10 +49,13 @@ class DouBanAPILoadTask extends Task {
 				.append(pagin_page).append("&max-results=").append(pagin_size)
 				.toString();
 		log.info("url= " + url);
+		
 		try {
 			HttpResponse response = httpclient.execute(new HttpGet(url));
+			
 			log.debug(response.getStatusLine());
 			HttpEntity entity = response.getEntity();
+			log.info("length="+entity.getContentLength());
 			return entity.getContent();
 		} catch (IOException e) {
 			log.error(null, e);
