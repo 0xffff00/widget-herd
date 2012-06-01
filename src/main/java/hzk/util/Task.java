@@ -19,12 +19,12 @@ import org.apache.commons.logging.LogFactory;
  * <pre>
  * 	while (condition){
  *   	//检查当前任务是否需要被取消
- * 	 if (isCancelled()) {
+ * 	 if (isStopped()) {
  * 		break;
  * 	 }
  * 	 //检查当前任务是否需要暂停
  * 	 if （isPaused()) { 		
- * 		letThreadWaiting();
+ * 		letThreadWait();
  * 	 } 
  *   	...
  * 	 	...
@@ -56,7 +56,7 @@ public abstract class Task implements Runnable {
 		});
 	}
 
-	public synchronized void start() {
+	public void start() {
 		runMillisecBLS = resumeCount = 0;
 		lastStartTime = firstStartTime = Calendar.getInstance();
 		thread.start();
@@ -92,6 +92,10 @@ public abstract class Task implements Runnable {
 			pause();
 	}
 
+	public void join() throws InterruptedException{
+		thread.join();
+	}
+	
 	private void calc_lastStopTime() {
 		lastStopTime = Calendar.getInstance();
 		runMillisecBLS += System.currentTimeMillis()
@@ -102,7 +106,7 @@ public abstract class Task implements Runnable {
 		run();
 		calc_lastStopTime();
 	}
-
+	
 	public abstract void run();
 
 	/**

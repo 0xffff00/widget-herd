@@ -14,13 +14,13 @@ import java.util.HashSet;
  * <pre>
  * 	while (condition){
  *   	//检查当前任务是否需要被取消
- * 	 if (isCancelled()) {
+ * 	 if (isStopped()) {
  * 		break;
  * 	 }
  * 	 //检查当前任务是否需要暂停
  * 	 if （isPaused()) {
  * 		publish(PAUSE)
- * 		letThreadWaiting();
+ * 		letThreadWait();
  * 	 } 
  *   	...
  * 	 	...
@@ -37,6 +37,13 @@ import java.util.HashSet;
  */
 public abstract class ProgressTask extends Task implements ProgressObservable {
 	private Collection<ProgressObserver> observers;
+	public static final char BEGIN = 0;
+	public static final char UPDATE = 1;
+	public static final char ERROR = 4;
+	public static final char COMPLETE = 12;
+	public static final char STOP = 15;
+	public static final char PAUSE = 21;
+	public static final char RESUME = 23;
 
 	public ProgressTask() {
 		observers = new HashSet<ProgressObserver>();
@@ -72,7 +79,7 @@ public abstract class ProgressTask extends Task implements ProgressObservable {
 	 * 发布一个更新事件，通告所有观察者
 	 */
 	public void publish() {
-		publish(ProgressEvent.UPDATE);
+		publish(UPDATE);
 	}
 
 	/**
@@ -83,6 +90,8 @@ public abstract class ProgressTask extends Task implements ProgressObservable {
 	 */
 	public void publish(char type) {
 		ProgressEvent e = createEvent();
+		if (e==null)
+			e=new ProgressEvent();
 		e.setType(type);
 		notifyObservers(e);
 	}

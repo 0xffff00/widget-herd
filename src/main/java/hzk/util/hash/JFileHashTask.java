@@ -44,7 +44,7 @@ public class JFileHashTask extends ProgressTask{
 					break;
 				}
 				if (isPaused()){
-					publish(ProgressEvent.PAUSE);
+					publish(PAUSE);
 					letThreadWait();
 				}
 				md.update(buffer, 0, nread);
@@ -55,16 +55,16 @@ public class JFileHashTask extends ProgressTask{
 			
 			if (isStopped()){
 				result= "Hash Canncelled";
-				publish(ProgressEvent.CANCEL);
+				publish(STOP);
 			}else{
 				result = HashUtil.toHexString(md.digest());
-				publish(ProgressEvent.COMPLETE);
+				publish(COMPLETE);
 			}
 				
 		} catch (NoSuchAlgorithmException | IOException e) {
 			log.error(null,e);
 			result= e.toString();
-			publish(ProgressEvent.ERROR);
+			publish(ERROR);
 		}
 	}
 
