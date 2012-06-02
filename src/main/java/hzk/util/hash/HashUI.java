@@ -22,6 +22,8 @@ import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.core.databinding.observable.Realm;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Combo;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 
 public class HashUI {
 
@@ -34,6 +36,8 @@ public class HashUI {
 	private Button btnCalculate;
 	private Button btnPause;
 	private Button btnCancel;
+	private Button btnSha1,btnMd5 ;
+
 	private Label lblTime;
 	private JFileHashTask hashTask;
 	protected Log log = LogFactory.getLog(this.getClass());
@@ -108,7 +112,6 @@ public class HashUI {
 		btnBrowse.setText("Browse");
 
 		Group grpHashItems = new Group(shlHashUi, SWT.NONE);
-		grpHashItems.setVisible(false);
 		fd_cmbBrowse.left = new FormAttachment(grpHashItems, 0, SWT.LEFT);
 		FormData fd_grpHashItems = new FormData();
 		fd_grpHashItems.bottom = new FormAttachment(0, 102);
@@ -117,15 +120,26 @@ public class HashUI {
 		fd_grpHashItems.left = new FormAttachment(0, 5);
 		grpHashItems.setLayoutData(fd_grpHashItems);
 		grpHashItems.setText("Hash Items");
+		
+		SelectionAdapter hashItemsLstner=new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				btnCalculate.setEnabled(btnSha1.getSelection() || btnMd5.getSelection());
+			}
+		};
+		btnSha1 = new Button(grpHashItems, SWT.CHECK);
+		btnSha1.addSelectionListener(hashItemsLstner);
+		btnSha1.setSelection(true);
+		btnSha1.setBounds(10, 21, 70, 17);
+		btnSha1.setText("SHA1");
 
-		Button btnSha = new Button(grpHashItems, SWT.CHECK);
-		btnSha.setBounds(10, 21, 70, 17);
-		btnSha.setText("SHA1");
+		btnMd5 = new Button(grpHashItems, SWT.CHECK);
+		btnMd5.addSelectionListener(hashItemsLstner);
+		btnMd5.setBounds(10, 45, 70, 17);
+		btnMd5.setText("MD5");
 
-		Button btnMd = new Button(grpHashItems, SWT.CHECK);
-		btnMd.setBounds(10, 45, 70, 17);
-		btnMd.setText("MD5");
-
+		
+		
 		btnCalculate = new Button(shlHashUi, SWT.NONE);
 		FormData fd_btnCalculate = new FormData();
 		fd_btnCalculate.bottom = new FormAttachment(0, 71);
@@ -138,6 +152,9 @@ public class HashUI {
 
 			@Override
 			public void mouseUp(MouseEvent e) {
+				if (!btnSha1.getSelection() && !btnMd5.getSelection()){
+					return;
+				}
 				String path = cmbBrowse.getText();
 				cmbBrowse.add(path);
 				if (path == null) {
@@ -149,48 +166,17 @@ public class HashUI {
 				btnPause.setEnabled(true);
 				btnCancel.setEnabled(true);
 				btnCalculate.setEnabled(false);
-				final int pbMaximum = progressBar.getMaximum();
+				if (btnSha1.getSelection())
+					startHashTask(path,"SHA1");
+				if (btnMd5.getSelection())
+					startHashTask(path,"MD5");
 				
-				hashTask=JFileHasher.createTask(path);
-				hashTask.addObserver(new ProgressObserver() {
-					@Override
-					public void progressUpdated(final ProgressEvent e) {
-						final int sel = (int) (pbMaximum * e.getProgressRate());
-						display.asyncExec(new Runnable() {
-							public void run() {
-								if (progressBar.isDisposed())
-									return;
-								progressBar.setSelection(sel);
-								lblPgbar.setText(e.getStatus());
-								lblTime.setText(e.getTaskRunTimeInSec());
-
-							}
-						});
-
-						if (e.isTerminated()){
-							display.asyncExec(new Runnable() {
-								public void run() {
-									textResult.setText(e.getResult());
-									btnPause.setEnabled(false);
-									btnCancel.setEnabled(false);
-									btnCalculate.setEnabled(true);
-									progressBar.setVisible(false);
-									lblPgbar.setText("");
-		
-								}
-							});
-						}
-
-					}
-
-				});
-				hashTask.start();
 
 			}
 		});
 		btnCalculate.setText("Calculate");
 
-		textResult = new Text(shlHashUi, SWT.BORDER);
+		textResult = new Text(shlHashUi, SWT.BORDER | SWT.V_SCROLL | SWT.MULTI);
 		FormData fd_textResult = new FormData();
 		fd_textResult.top = new FormAttachment(grpHashItems, 46);
 		fd_textResult.left = new FormAttachment(0, 5);
@@ -248,7 +234,7 @@ public class HashUI {
 		btnCancel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent arg0) {
-				hashTask.stop();
+				hashTask.cancel();
 				//btnCancel.setEnabled(false);
 				
 
@@ -262,5 +248,43 @@ public class HashUI {
 		btnCancel.setLayoutData(fd_btnCancel);
 		btnCancel.setText("Cancel");
 
+	}
+	
+	private void  startHashTask(String path,String algorithm){
+		final int pbMaximum = progressBar.getMaximum();
+		hashTask=JFileHasher.createTask(path,algorithm);
+		hashTask.addObserver(new ProgressObserver() {
+			@Override
+			public void progressUpdated(final ProgressEvent e) {
+				final int sel = (int) (pbMaximum * e.getProgressRate());
+				display.asyncExec(new Runnable() {
+					public void run() {
+						if (progressBar.isDisposed())
+							return;
+						progressBar.setSelection(sel);
+						lblPgbar.setText(e.getStatus());
+						lblTime.setText(e.getTaskRunTimeInSec());
+
+					}
+				});
+
+				if (e.isTerminated()){
+					display.asyncExec(new Runnable() {
+						public void run() {
+							textResult.setText(textResult.getText()+"\r\n"+e.getResult());
+							btnPause.setEnabled(false);
+							btnCancel.setEnabled(false);
+							btnCalculate.setEnabled(true);
+							progressBar.setVisible(false);
+							lblPgbar.setText("");
+
+						}
+					});
+				}
+
+			}
+
+		});
+		hashTask.start();
 	}
 }

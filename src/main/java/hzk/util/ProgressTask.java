@@ -14,7 +14,7 @@ import java.util.HashSet;
  * <pre>
  * 	while (condition){
  *   	//检查当前任务是否需要被取消
- * 	 if (isStopped()) {
+ * 	 if (isCancelled()) {
  * 		break;
  * 	 }
  * 	 //检查当前任务是否需要暂停
@@ -41,6 +41,7 @@ public abstract class ProgressTask extends Task implements ProgressObservable {
 	public static final char UPDATE = 1;
 	public static final char ERROR = 4;
 	public static final char COMPLETE = 12;
+	public static final char CANCEL = 14;
 	public static final char STOP = 15;
 	public static final char PAUSE = 21;
 	public static final char RESUME = 23;

@@ -86,10 +86,6 @@ public class ProgressEvent {
 		return type == CANCEL;
 	}
 
-	public boolean isStopped() {
-		return type == STOP;
-	}
-
 	public boolean isErrorOccured() {
 		return type == ERROR;
 	}
