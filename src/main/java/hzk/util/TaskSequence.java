@@ -1,29 +1,41 @@
 package hzk.util;
 
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * 表示子任务之间的逻辑串联
  * @author HZK
  * @version 0.3
  */
-public class SerializedTask extends Task {
-	private Task[] tasks;
-	private int current;
+public class TaskSequence extends Task {
+	private List<Task> tasks;
+	private Task current;
+	private int pos;
 
-	public SerializedTask(Task... subTasks) {
-		tasks = subTasks;
+	public TaskSequence(Task... subTasks) {
+		pos=0;
+		tasks=new LinkedList<Task>();
+		for (Task t:subTasks){
+			if (t!=null){
+				tasks.add(t);
+			}
+		}	
+		log.debug(Arrays.toString(tasks.toArray()));
 	}
 
 	@Override
 	public void run() {
-		try {
-			int i;
-			for (i=0;i<tasks.length;i++) {	
+		try {			
+			for (Task t:tasks) {					
 				if (isCancelled()){
 					break;
 				}
-				current=i;
-				tasks[i].start();
-				tasks[i].join();
+				current=t;
+				t.start();
+				t.join();
+				pos++;
 			}			
 		} catch (InterruptedException e) {
 			log.error(null,e);
@@ -32,15 +44,15 @@ public class SerializedTask extends Task {
 	}
 
 	public Task currentSubTask(){
-		return tasks[current];
+		return current;
 	}
 	
 	public int currentSubTaskIndex(){
-		return current;
+		return pos;
 	}
 
 	public int subTasksCount(){
-		return tasks.length;
+		return tasks.size();
 	}
 	
 	@Override

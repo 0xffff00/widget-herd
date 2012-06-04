@@ -6,10 +6,10 @@ package hzk.util;
  * @author HZK
  * @version 0.1
  */
-public class ParalleledTask extends Task {
+public class TaskConcurrency extends Task {
 	private Task[] tasks;
 
-	public ParalleledTask(Task... subTasks) {
+	public TaskConcurrency(Task... subTasks) {
 		tasks = subTasks;
 	}
 

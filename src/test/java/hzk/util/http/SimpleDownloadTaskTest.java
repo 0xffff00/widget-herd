@@ -22,29 +22,22 @@ public class SimpleDownloadTaskTest {
 	String url3="http://releases.ubuntu.com/precise/ubuntu-12.04-desktop-i386.iso";
 	String url1 = "http://api.douban.com/movie/subjects?q=the%20dark%20knight";
 	String file1="D:/var/hzk/herd/tmp/tdk.xml";
-	String save1="D:/var/hzk/herd/tmp/1";
+	String save1="D:/var/hzk/herd/tmp/3";
 	String save2="D:/var/hzk/herd/tmp/2";
-	@Test 
+	//@Test 
 	public void testIOUtils() throws IOException{
 		InputStream input = new FileInputStream(file1);
 		OutputStream output = new FileOutputStream(save2);
 		IOUtils.copy(input, output);
 		
 	}
-	//@Test
+	@Test
 	public void test() throws InterruptedException {		
-		SimpleDownloadTask task = new SimpleDownloadTask(url,save1);
+		SimpleDownloadTask task = new SimpleDownloadTask(url3,save1);
 		task.start();
-		int x = 0;
-		long m = System.currentTimeMillis();
-		while (true) {
-			if (!task.isAlive())
-				break;
-			Thread.sleep(400);
-			log.info(System.currentTimeMillis() - m);
-		}
-		// task.join();
-		// Thread.sleep(5000);
+		
+		task.join();
+		
 		log.info(null);
 		assertTrue(true);
 	}

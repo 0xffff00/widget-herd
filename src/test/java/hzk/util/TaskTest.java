@@ -88,7 +88,7 @@ public class TaskTest {
 	//@Test
 	public void testTasksSerialize() throws InterruptedException{
 		
-		Task t=new SerializedTask(task1,task2);
+		Task t=new TaskSequence(task1,task2);
 		t.start();
 		Thread.sleep(2000);		
 		t.pause();

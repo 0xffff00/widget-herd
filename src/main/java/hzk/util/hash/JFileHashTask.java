@@ -35,6 +35,7 @@ public class JFileHashTask extends ProgressTask {
 			flen = f.length();
 			pgMax = (int) ((flen - 1) / BUFFER_SIZE_OF_BYTE) + 1;
 			int nread = 0;
+			publish(BEGIN);
 			while ((nread = f.read(buffer)) != -1) {
 				if (isCancelled()) {
 					break;

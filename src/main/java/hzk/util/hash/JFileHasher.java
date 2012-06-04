@@ -17,7 +17,7 @@ public class JFileHasher {
 
 	public static JFileHashTask createTask(String path, String algorithm) {
 		JFileHashTask task = new JFileHashTask(path, algorithm);
-		log.debug("createTask:" + path);
+		log.debug("createTask:("+algorithm+")" + path);
 		return task;
 	}
 

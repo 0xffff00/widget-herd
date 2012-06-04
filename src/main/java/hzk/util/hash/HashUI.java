@@ -2,6 +2,8 @@ package hzk.util.hash;
 
 import hzk.util.ProgressEvent;
 import hzk.util.ProgressObserver;
+import hzk.util.TaskSequence;
+import hzk.util.Task;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -39,7 +41,9 @@ public class HashUI {
 	private Button btnSha1,btnMd5 ;
 
 	private Label lblTime;
-	private JFileHashTask hashTask;
+	private Task hashTask;
+	JFileHashTask sha1task;
+	JFileHashTask md5task;
 	protected Log log = LogFactory.getLog(this.getClass());
 	// private Model model=new Model();
 
@@ -160,17 +164,15 @@ public class HashUI {
 				if (path == null) {
 					textResult.setText("Error:File Not Found");
 				}
-				progressBar.setVisible(true);
-				progressBar.setSelection(0);
-				textResult.setText("");
-				btnPause.setEnabled(true);
-				btnCancel.setEnabled(true);
-				btnCalculate.setEnabled(false);
-				if (btnSha1.getSelection())
-					startHashTask(path,"SHA1");
-				if (btnMd5.getSelection())
-					startHashTask(path,"MD5");
 				
+				textResult.setText("");
+				sha1task=md5task=null;
+				if (btnSha1.getSelection())
+					sha1task=newHashTask(path,"SHA1");
+				if (btnMd5.getSelection())
+					 md5task=newHashTask(path,"MD5");
+				hashTask=new TaskSequence(sha1task,md5task);
+				hashTask.start();
 
 			}
 		});
@@ -234,9 +236,8 @@ public class HashUI {
 		btnCancel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent arg0) {
-				hashTask.cancel();
-				//btnCancel.setEnabled(false);
-				
+				progressBar.setVisible(false);
+				hashTask.cancel();			
 
 			}
 		});
@@ -250,10 +251,10 @@ public class HashUI {
 
 	}
 	
-	private void  startHashTask(String path,String algorithm){
+	private JFileHashTask  newHashTask(String path,String algorithm){
 		final int pbMaximum = progressBar.getMaximum();
-		hashTask=JFileHasher.createTask(path,algorithm);
-		hashTask.addObserver(new ProgressObserver() {
+		JFileHashTask task=JFileHasher.createTask(path,algorithm);
+		task.addObserver(new ProgressObserver() {
 			@Override
 			public void progressUpdated(final ProgressEvent e) {
 				final int sel = (int) (pbMaximum * e.getProgressRate());
@@ -267,11 +268,21 @@ public class HashUI {
 
 					}
 				});
+				if (e.isBegan()){
+					display.asyncExec(new Runnable() {
+						public void run() {							
+							btnPause.setEnabled(true);
+							btnCancel.setEnabled(true);
+							btnCalculate.setEnabled(false);
+							progressBar.setVisible(true);							
 
+						}
+					});
+				}
 				if (e.isTerminated()){
 					display.asyncExec(new Runnable() {
 						public void run() {
-							textResult.setText(textResult.getText()+"\r\n"+e.getResult());
+							textResult.setText(textResult.getText()+e.getResult()+"\r\n");
 							btnPause.setEnabled(false);
 							btnCancel.setEnabled(false);
 							btnCalculate.setEnabled(true);
@@ -284,7 +295,7 @@ public class HashUI {
 
 			}
 
-		});
-		hashTask.start();
+		});		
+		return task;
 	}
 }
