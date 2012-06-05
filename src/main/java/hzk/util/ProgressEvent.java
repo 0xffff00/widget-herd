@@ -77,17 +77,17 @@ public class ProgressEvent {
 		return String.valueOf(taskRunMillisec / 1000f) + "sec";
 
 	}
-
+	
+	public boolean isBegan() {
+		return type == BEGIN;
+	}
+	
 	public boolean isCompleted() {
 		return type == COMPLETE;
 	}
 
 	public boolean isCancelled() {
 		return type == CANCEL;
-	}
-
-	public boolean isStopped() {
-		return type == STOP;
 	}
 
 	public boolean isErrorOccured() {

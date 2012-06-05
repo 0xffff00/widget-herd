@@ -10,40 +10,37 @@ import java.security.NoSuchAlgorithmException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class JFileHashTask extends ProgressTask{
+public class JFileHashTask extends ProgressTask {
 	private Log log = LogFactory.getLog(this.getClass());
-	public static final String ALGORITHM_SHA = "SHA-1";
-	public static final String ALGORITHM_MD5 = "MD5";
-	public static final int BUFFER_SIZE_OF_BYTE = 65536;
-	protected String filePath, result;
+	private static final int BUFFER_SIZE_OF_BYTE = 65536;
+	private String filePath, algorithm, result;
 	private int pgVal, pgMax;
-	private long fpos, flen;	
+	private long fpos, flen;
 	private RandomAccessFile f;
 	private MessageDigest md;
 
-	
-	
-	protected JFileHashTask(String filepath) {
+	protected JFileHashTask(String filepath, String algorithm) {
 		this.filePath = filepath;
+		this.algorithm = algorithm;
 	}
 
-	
 	@Override
 	public void run() {
 		byte[] buffer = new byte[BUFFER_SIZE_OF_BYTE];
 		try {
 			f = new RandomAccessFile(filePath, "r");
-			md = MessageDigest.getInstance(ALGORITHM_SHA);
+			md = MessageDigest.getInstance(algorithm);
 			pgVal = 0;
 			fpos = 0;
 			flen = f.length();
 			pgMax = (int) ((flen - 1) / BUFFER_SIZE_OF_BYTE) + 1;
 			int nread = 0;
+			publish(BEGIN);
 			while ((nread = f.read(buffer)) != -1) {
-				if (isStopped()) {
+				if (isCancelled()) {
 					break;
 				}
-				if (isPaused()){
+				if (isPaused()) {
 					publish(PAUSE);
 					letThreadWait();
 				}
@@ -52,18 +49,18 @@ public class JFileHashTask extends ProgressTask{
 				fpos += nread;
 				publish();
 			}
-			
-			if (isStopped()){
-				result= "Hash Canncelled";
+
+			if (isCancelled()) {
+				result = "Hash Canncelled";
 				publish(STOP);
-			}else{
-				result = HashUtil.toHexString(md.digest());
+			} else {
+				result = HashUtils.toHexString(md.digest());
 				publish(COMPLETE);
 			}
-				
+
 		} catch (NoSuchAlgorithmException | IOException e) {
-			log.error(null,e);
-			result= e.toString();
+			log.error(null, e);
+			result = e.toString();
 			publish(ERROR);
 		}
 	}

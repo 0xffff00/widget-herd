@@ -11,11 +11,11 @@ public class TEST_DATA {
 		answers[2] = "7320C9DE8FF28F802EF7083DC99357EE30BD493F";
 		params[3] = "E:\\tmp\\tgwtdt2011.mkv"; // 2.7g
 		answers[3] = "BBF62F836DE67EC0741C1F984315EDF41C7437FF";
-		params[4] = "E:/Videos/[¿ç¹úÒøĞĞ].The.International.2009.720p.LSM-SCG.rmvb";
+		params[4] = "E:/Videos/[è·¨å›½é“¶è¡Œ].The.International.2009.720p.LSM-SCG.rmvb";
 		answers[4] = "62AD8E24EC08019BD3E09BA1BA3521B92FCDE132";
-		params[5] = "E:/Videos/[¹·Éá].Doghouse.2009.BD-RMVB-ÈËÈËµ÷ÕûË«Óï×ÖÄ»-°®ÄãÒ»Éú.rmvb";
+		params[5] = "E:/Videos/[ç‹—èˆ].Doghouse.2009.BD-RMVB-äººäººè°ƒæ•´åŒè¯­å­—å¹•-çˆ±ä½ ä¸€ç”Ÿ.rmvb";
 		answers[5] = "53E06B1F11F0CD1B7085D496B35C78CF47BA81FA";
-		params[6] = "E:\\Èí¼ş°²×°°ü\\AdobeAudition3.exe";
+		params[6] = "E:\\è½¯ä»¶å®‰è£…åŒ…\\AdobeAudition3.exe";
 		answers[6] = "7B2580E1686800F17E0D4B48FBCEE6E63B9AC94A";
 /**
  * @see http://en.wikipedia.org/wiki/SHA-1
